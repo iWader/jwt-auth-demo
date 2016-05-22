@@ -16,3 +16,12 @@ $app->get('/', function () use ($app) {
 });
 
 $app->post('/auth/login', 'AuthController@postLogin');
+
+$app->group(['middleware' => 'auth:api'], function($app)
+{
+    $app->get('/test', function() {
+        return response()->json([
+            'message' => 'Hello World!',
+        ]);
+    });
+});
